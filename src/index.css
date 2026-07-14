@@ -1,0 +1,292 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-sans: "Cairo", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+
+  /* FBM Brand Colors */
+  --color-fbm-green: #76BC21;
+  --color-fbm-dark: #000839;
+  --color-fbm-navy: #050E46;
+  --color-fbm-green-dark: #5da018;
+  --color-fbm-green-light: #9ed44f;
+}
+
+.animate-fadeIn { animation: fadeIn 0.3s ease-out; }
+.animate-slideIn { animation: slideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1); }
+.animate-slideUp { animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+.animate-toastProgress { animation: toastProgress 6s linear forwards; }
+.animate-pulse-green { animation: pulseGreen 2s ease-in-out infinite; }
+.animate-shimmer { animation: shimmer 2s linear infinite; }
+.animate-bounceIn { animation: bounceIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+.animate-float { animation: float 3s ease-in-out infinite; }
+.animate-glow { animation: glow 2s ease-in-out infinite alternate; }
+.animate-spin-slow { animation: spin 3s linear infinite; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(-20px) scale(0.95); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes toastProgress {
+  from { width: 100%; }
+  to { width: 0%; }
+}
+@keyframes pulseGreen {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(118, 188, 33, 0.4); }
+  50% { box-shadow: 0 0 0 12px rgba(118, 188, 33, 0); }
+}
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+@keyframes bounceIn {
+  0% { opacity: 0; transform: scale(0.3); }
+  50% { opacity: 1; transform: scale(1.05); }
+  70% { transform: scale(0.9); }
+  100% { opacity: 1; transform: scale(1); }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+@keyframes glow {
+  from { text-shadow: 0 0 5px rgba(118, 188, 33, 0.5); }
+  to { text-shadow: 0 0 20px rgba(118, 188, 33, 0.9), 0 0 30px rgba(118, 188, 33, 0.4); }
+}
+@keyframes ripple {
+  0% { transform: scale(0); opacity: 1; }
+  100% { transform: scale(4); opacity: 0; }
+}
+@keyframes notifPop {
+  0% { transform: translateY(-100%) scale(0.8); opacity: 0; }
+  60% { transform: translateY(8px) scale(1.02); opacity: 1; }
+  100% { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+
+/* ─────────────────────────────────────────────────────────
+   BASE RESET & BODY
+───────────────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: #000839;
+  color: #ffffff;
+  overscroll-behavior: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* Prevent text selection on buttons */
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* Allow selection on inputs & text areas */
+input, textarea, [contenteditable] {
+  -webkit-user-select: text;
+  user-select: text;
+}
+
+/* ─────────────────────────────────────────────────────────
+   SCROLLBAR STYLING (WebKit)
+───────────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(118, 188, 33, 0.3); border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(118, 188, 33, 0.6); }
+
+/* ─────────────────────────────────────────────────────────
+   GLASS MORPHISM UTILITIES
+───────────────────────────────────────────────────────── */
+.glass {
+  background: rgba(5, 14, 70, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-dark {
+  background: rgba(0, 8, 57, 0.85);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(118, 188, 33, 0.12);
+}
+
+.glass-green {
+  background: rgba(118, 188, 33, 0.08);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(118, 188, 33, 0.2);
+}
+
+/* ─────────────────────────────────────────────────────────
+   PREMIUM BUTTON BASE
+───────────────────────────────────────────────────────── */
+.btn-fbm {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-fbm::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle, rgba(255,255,255,0.25) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.btn-fbm:active::after {
+  opacity: 1;
+}
+
+.btn-fbm:active {
+  transform: scale(0.97);
+}
+
+/* ─────────────────────────────────────────────────────────
+   SHIMMER LOADING SKELETON
+───────────────────────────────────────────────────────── */
+.skeleton {
+  background: linear-gradient(90deg, 
+    rgba(255,255,255,0.04) 0%, 
+    rgba(255,255,255,0.1) 50%, 
+    rgba(255,255,255,0.04) 100%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s linear infinite;
+  border-radius: 8px;
+}
+
+/* ─────────────────────────────────────────────────────────
+   NOTIFICATION TOAST (top slide-down like Snapchat/iOS)
+───────────────────────────────────────────────────────── */
+.notif-toast {
+  animation: notifPop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+/* ─────────────────────────────────────────────────────────
+   STATUS BADGE COLORS
+───────────────────────────────────────────────────────── */
+.badge-pending    { background: rgba(234, 179, 8, 0.15); color: #fbbf24; border: 1px solid rgba(234, 179, 8, 0.3); }
+.badge-approved   { background: rgba(34, 197, 94, 0.15); color: #4ade80; border: 1px solid rgba(34, 197, 94, 0.3); }
+.badge-rejected   { background: rgba(239, 68, 68, 0.15); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.3); }
+.badge-done       { background: rgba(118, 188, 33, 0.15); color: #76BC21; border: 1px solid rgba(118, 188, 33, 0.3); }
+.badge-in-progress { background: rgba(59, 130, 246, 0.15); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.3); }
+.badge-critical   { background: rgba(239, 68, 68, 0.2); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.4); }
+.badge-warning    { background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3); }
+.badge-info       { background: rgba(99, 102, 241, 0.15); color: #a5b4fc; border: 1px solid rgba(99, 102, 241, 0.3); }
+
+/* ─────────────────────────────────────────────────────────
+   CARD HOVER EFFECT
+───────────────────────────────────────────────────────── */
+.card-hover {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.card-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(118, 188, 33, 0.12);
+}
+
+/* ─────────────────────────────────────────────────────────
+   GRADIENT TEXT (FBM Green)
+───────────────────────────────────────────────────────── */
+.text-gradient-green {
+  background: linear-gradient(135deg, #76BC21 0%, #9ed44f 50%, #5da018 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ─────────────────────────────────────────────────────────
+   ANDROID-STYLE RIPPLE (for interactive elements)
+───────────────────────────────────────────────────────── */
+.ripple-container {
+  position: relative;
+  overflow: hidden;
+}
+.ripple-container .ripple {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(118, 188, 33, 0.3);
+  transform: scale(0);
+  animation: ripple 0.6s linear;
+  pointer-events: none;
+}
+
+/* ─────────────────────────────────────────────────────────
+   SAFE AREA (for notched/punch-hole phones)
+───────────────────────────────────────────────────────── */
+.safe-top    { padding-top: env(safe-area-inset-top, 0px); }
+.safe-bottom { padding-bottom: env(safe-area-inset-bottom, 16px); }
+
+/* ─────────────────────────────────────────────────────────
+   MODAL OVERLAY
+───────────────────────────────────────────────────────── */
+.modal-overlay {
+  background: rgba(0, 8, 57, 0.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+/* ─────────────────────────────────────────────────────────
+   INPUT FOCUS RING (FBM Green)
+───────────────────────────────────────────────────────── */
+.input-fbm {
+  background: rgba(0, 8, 57, 0.8);
+  border: 1.5px solid rgba(255, 255, 255, 0.08);
+  color: white;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.input-fbm:focus {
+  outline: none;
+  border-color: #76BC21;
+  box-shadow: 0 0 0 3px rgba(118, 188, 33, 0.15);
+}
+
+.input-fbm::placeholder {
+  color: rgba(148, 163, 184, 0.5);
+}
+
+/* ─────────────────────────────────────────────────────────
+   BOTTOM NAV BAR (Mobile)
+───────────────────────────────────────────────────────── */
+.bottom-nav {
+  background: rgba(0, 8, 57, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top: 1px solid rgba(118, 188, 33, 0.15);
+  box-shadow: 0 -4px 30px rgba(0, 0, 0, 0.4);
+}
+
+/* ─────────────────────────────────────────────────────────
+   ONLINE PULSE INDICATOR
+───────────────────────────────────────────────────────── */
+.online-dot {
+  width: 8px;
+  height: 8px;
+  background: #76BC21;
+  border-radius: 50%;
+  animation: pulseGreen 2s ease-in-out infinite;
+}

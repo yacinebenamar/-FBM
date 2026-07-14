@@ -1,0 +1,6 @@
+node_modules
+*.zip
+*.tsbuildinfo
+.DS_Store
+*.log
+android/app/build/outputs

@@ -1,0 +1,1 @@
+{"root":["./src/App.tsx","./src/data.ts","./src/firebase.ts","./src/main.tsx","./src/types.ts","./src/components/AdminDashboard.tsx","./src/components/FBMLogo.tsx","./src/components/NotificationPopover.tsx","./src/components/SmartLogin.tsx","./src/components/TaskSignatureModal.tsx","./src/components/WorkerDashboard.tsx","./src/utils/audio.ts"],"version":"5.8.3"}
